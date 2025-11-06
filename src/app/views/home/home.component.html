@@ -1,0 +1,81 @@
+<div class="biblioteca-container">
+  <!-- Header -->
+  <header class="header">
+    <div class="header-content">
+      <h1>📚 BiblioConnect</h1>
+      <p class="subtitle"></p>
+    </div>
+  </header>
+
+  <!-- Barra de búsqueda y acciones -->
+  <div class="search-bar-container">
+    <div class="search-bar">
+      <input
+        type="text"
+        [(ngModel)]="searchTerm"
+        (input)="buscarLibros()"
+        class="search-input"
+        placeholder="Buscar por título, ISBN, editorial o categoría...">
+      <button class="btn-search" (click)="buscarLibros()">
+        🔍 Buscar
+      </button>
+    </div>
+    <button class="btn-add" (click)="irACrearLibro()">
+      Agregar Libro
+    </button>
+  </div>
+
+  <!-- Loading -->
+  <div *ngIf="loading" class="loading">
+    <div class="spinner"></div>
+    <p>Cargando resultados...</p>
+  </div>
+
+  <!-- Sin resultados -->
+  <div *ngIf="!loading && librosFiltrados.length === 0" class="no-results">
+    <p>No se encontraron libros</p>
+    <button class="btn-primary" (click)="irACrearLibro()">
+      Registrar primer libro
+    </button>
+  </div>
+
+  <!-- Grid de libros -->
+  <div *ngIf="!loading && librosFiltrados.length > 0" class="libros-grid">
+    <div class="libro-card" *ngFor="let libro of librosFiltrados">
+      <div class="libro-header">
+        <h3 class="libro-titulo">{{ libro.titulo }}</h3>
+        <span class="libro-categoria">{{ libro.categoria }}</span>
+      </div>
+
+      <div class="libro-body">
+        <p class="libro-info">
+          <strong>ISBN:</strong> {{ libro.isbn }}
+        </p>
+        <p class="libro-info">
+          <strong>Editorial:</strong> {{ libro.editorial.nombre }}
+        </p>
+        <p class="libro-info" *ngIf="libro.editorial.direccion">
+          <strong>Dirección:</strong> {{ libro.editorial.direccion }}
+        </p>
+      </div>
+
+      <div class="libro-actions">
+        <button class="btn-detail" (click)="verDetalle(libro.id)">
+          Ver Detalle
+        </button>
+        <button class="btn-edit" (click)="irAEditarLibro(libro.id)">
+          Editar
+        </button>
+        <button class="btn-delete" (click)="eliminarLibro(libro)">
+          Eliminar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer con estadísticas -->
+  <div class="footer-stats" *ngIf="!loading">
+    <p>Total de libros: <strong>{{ libros.length }}</strong></p>
+    <p *ngIf="searchTerm">Resultados: <strong>{{ librosFiltrados.length }}</strong></p>
+  </div>
+</div>

@@ -1,0 +1,123 @@
+<div class="form-container">
+  <!-- Header -->
+  <header class="form-header">
+    <button class="btn-back" (click)="cancelar()">
+      ← Volver
+    </button>
+    <h1>{{ modoEdicion ? ' Editar Libro' : ' Agregar Nuevo Libro' }}</h1>
+  </header>
+
+  <!-- Formulario -->
+  <div class="form-card">
+    <form [formGroup]="libroForm" (ngSubmit)="guardarLibro()">
+      
+      <!-- Título -->
+      <div class="form-group">
+        <label class="form-label">Título: *</label>
+        <input 
+          type="text" 
+          formControlName="titulo"
+          class="form-control"
+          placeholder="Ej: Cien años de soledad"
+          maxlength="200"
+          [class.invalid]="libroForm.get('titulo')?.invalid && libroForm.get('titulo')?.touched">
+        <small class="error-message" 
+               *ngIf="libroForm.get('titulo')?.invalid && libroForm.get('titulo')?.touched">
+          El título es requerido
+        </small>
+      </div>
+
+      <!-- ISBN -->
+      <div class="form-group">
+        <label class="form-label">ISBN: *</label>
+        <input 
+          type="text" 
+          formControlName="isbn"
+          class="form-control"
+          placeholder="Ej: 978-0307474728"
+          maxlength="50"
+          [class.invalid]="libroForm.get('isbn')?.invalid && libroForm.get('isbn')?.touched">
+        <small class="error-message" 
+               *ngIf="libroForm.get('isbn')?.invalid && libroForm.get('isbn')?.touched">
+          El ISBN es requerido
+        </small>
+      </div>
+
+      <!-- Editorial -->
+      <div class="form-group">
+        <label class="form-label">Editorial: *</label>
+        <select 
+          formControlName="idEditorial"
+          class="form-control"
+          [class.invalid]="libroForm.get('idEditorial')?.invalid && libroForm.get('idEditorial')?.touched">
+          <option [ngValue]="null">Selecciona una editorial</option>
+          <option *ngFor="let editorial of editoriales" [ngValue]="editorial.id">
+            {{ editorial.nombre }}
+          </option>
+        </select>
+        <small class="error-message" 
+               *ngIf="libroForm.get('idEditorial')?.invalid && libroForm.get('idEditorial')?.touched">
+          Debes seleccionar una editorial
+        </small>
+      </div>
+
+      <!-- Género/Categoría -->
+      <div class="form-group">
+        <label class="form-label">Género/Categoría: *</label>
+        <select 
+          formControlName="idCategoria"
+          class="form-control"
+          [class.invalid]="libroForm.get('idCategoria')?.invalid && libroForm.get('idCategoria')?.touched">
+          <option [ngValue]="null">Selecciona un género</option>
+          <option *ngFor="let genero of generos" [ngValue]="genero.id">
+            {{ genero.nombre }}
+          </option>
+        </select>
+        <small class="error-message" 
+               *ngIf="libroForm.get('idCategoria')?.invalid && libroForm.get('idCategoria')?.touched">
+          Debes seleccionar un género
+        </small>
+      </div>
+
+      <!-- Vista previa de datos -->
+      <div class="preview-section" *ngIf="libroForm.get('titulo')?.value">
+  <h3>Vista Previa:</h3>
+  <div class="preview-card">
+    <p><strong>Título:</strong> {{ libroForm.get('titulo')?.value }}</p>
+    <p><strong>ISBN:</strong> {{ libroForm.get('isbn')?.value }}</p>
+    <p *ngIf="libroForm.get('idEditorial')?.value">
+      <strong>Editorial:</strong> {{ obtenerNombreEditorial() }}
+    </p>
+    <p *ngIf="libroForm.get('idCategoria')?.value">
+      <strong>Género:</strong> {{ obtenerNombreGenero() }}
+    </p>
+  </div>
+</div>
+
+      <!-- Botones -->
+      <div class="form-actions">
+        <button 
+          type="button" 
+          class="btn btn-secondary" 
+          (click)="limpiarFormulario()"
+          [disabled]="loading">
+           Limpiar Campos
+        </button>
+        <button 
+          type="button" 
+          class="btn btn-cancel" 
+          (click)="cancelar()"
+          [disabled]="loading">
+          Cancelar
+        </button>
+        <button 
+          type="submit" 
+          class="btn btn-primary"
+          [disabled]="libroForm.invalid || loading">
+          <span *ngIf="!loading">{{ modoEdicion ? 'Actualizar' : 'Guardar' }}</span>
+          <span *ngIf="loading">⏳ Guardando...</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
