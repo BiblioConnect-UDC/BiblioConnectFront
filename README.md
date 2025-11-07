@@ -2,6 +2,8 @@
 
 BiblioConnect es una aplicación web moderna para la gestión de bibliotecas, que permite administrar libros, préstamos y usuarios de manera eficiente y sencilla.
 
+link del repositorio en github: https://github.com/BiblioConnect-UDC/BiblioConnectFront
+
 ## Arquitectura del Proyecto
 
 ### Frontend (Angular)
@@ -153,13 +155,13 @@ ng serve
    - Búsqueda y filtrado
    - Gestión de categorías y editoriales
 
-2. **Sistema de Préstamos**
+2. **Sistema de Préstamos** (Aun en desarrollo)
    - Registro de préstamos
    - Control de devoluciones
    - Historial de préstamos
    - Estados: ACTIVO, DEVUELTO, VENCIDO
 
-3. **Gestión de Usuarios**
+3. **Gestión de Usuarios** (Aun en desarrollo)
    - Registro de usuarios
    - Perfiles de usuario
    - Historial de préstamos
@@ -203,19 +205,3 @@ Las principales entidades son:
    - ID, nombre, email
    - Rol, estado
 
-## Contribución
-
-1. Fork el repositorio
-2. Crear rama feature (`git checkout -b feature/NuevaCaracteristica`)
-3. Commit cambios (`git commit -m 'Añadir nueva característica'`)
-4. Push a la rama (`git push origin feature/NuevaCaracteristica`)
-5. Crear Pull Request
-
-## Contacto y Soporte
-
-Para reportar bugs o solicitar nuevas características:
-1. Abrir un issue en el repositorio
-2. Enviar un correo al equipo de soporte
-
----
-_Proyecto generado con [Angular CLI](https://github.com/angular/angular-cli) version 16.2.16._
