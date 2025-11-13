@@ -1,0 +1,137 @@
+<div class="register-container">
+  <div class="register-card">
+    <div class="register-header">
+      <h1>Crear Perfil de Administrador</h1>
+      <p>Regístrate en BiblioConnect</p>
+    </div>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <!-- Mostrar errores generales -->
+      <div *ngIf="error" class="alert alert-danger" role="alert">
+        <strong>Error:</strong> {{ error }}
+      </div>
+
+      <!-- Mostrar éxito -->
+      <div *ngIf="success" class="alert alert-success" role="alert">
+        {{ success }}
+      </div>
+
+      <!-- Campo Nombre Completo -->
+      <div class="form-group">
+        <label for="nombre">Nombre Completo:</label>
+        <input
+          type="text"
+          id="nombre"
+          class="form-control"
+          formControlName="nombre"
+          [class.is-invalid]="submitted && f['nombre'].errors"
+          placeholder="Ingresa tu nombre completo"
+        />
+        <div *ngIf="submitted && f['nombre'].errors" class="invalid-feedback">
+          <div *ngIf="f['nombre'].errors['required']">El nombre es requerido</div>
+          <div *ngIf="f['nombre'].errors['minlength']">El nombre debe tener al menos 3 caracteres</div>
+        </div>
+      </div>
+
+      <!-- Campo Email -->
+      <div class="form-group">
+        <label for="email">Correo Institucional:</label>
+        <input
+          type="email"
+          id="email"
+          class="form-control"
+          formControlName="email"
+          [class.is-invalid]="submitted && f['email'].errors"
+          placeholder="nombre@institucion.edu"
+        />
+        <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+          <div *ngIf="f['email'].errors['required']">El correo es requerido</div>
+          <div *ngIf="f['email'].errors['email']">El correo no es válido</div>
+        </div>
+      </div>
+
+      <!-- Campo Usuario -->
+      <div class="form-group">
+        <label for="username">Usuario:</label>
+        <input
+          type="text"
+          id="username"
+          class="form-control"
+          formControlName="username"
+          [class.is-invalid]="submitted && f['username'].errors"
+          placeholder="Elige un nombre de usuario"
+        />
+        <div *ngIf="submitted && f['username'].errors" class="invalid-feedback">
+          <div *ngIf="f['username'].errors['required']">El usuario es requerido</div>
+          <div *ngIf="f['username'].errors['minlength']">El usuario debe tener al menos 5 caracteres</div>
+        </div>
+      </div>
+
+      <!-- Campo Contraseña -->
+      <div class="form-group">
+        <label for="password">Contraseña:</label>
+        <input
+          type="password"
+          id="password"
+          class="form-control"
+          formControlName="password"
+          [class.is-invalid]="submitted && f['password'].errors"
+          placeholder="Mínimo 5 caracteres"
+        />
+        <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+          <div *ngIf="f['password'].errors['required']">La contraseña es requerida</div>
+          <div *ngIf="f['password'].errors['minlength']">La contraseña debe tener al menos 5 caracteres</div>
+        </div>
+      </div>
+
+      <!-- Campo Confirmar Contraseña -->
+      <div class="form-group">
+        <label for="confirmPassword">Confirmar Contraseña:</label>
+        <input
+          type="password"
+          id="confirmPassword"
+          class="form-control"
+          formControlName="confirmPassword"
+          [class.is-invalid]="submitted && (f['confirmPassword'].errors || registerForm.errors?.['passwordMismatch'])"
+          placeholder="Confirma tu contraseña"
+        />
+        <div *ngIf="submitted && (f['confirmPassword'].errors || registerForm.errors?.['passwordMismatch'])" class="invalid-feedback">
+          <div *ngIf="f['confirmPassword'].errors?.['required']">Debes confirmar la contraseña</div>
+          <div *ngIf="f['confirmPassword'].errors?.['minlength']">La contraseña debe tener al menos 5 caracteres</div>
+          <div *ngIf="registerForm.errors?.['passwordMismatch']">Las contraseñas no coinciden</div>
+        </div>
+      </div>
+
+      <!-- Botones -->
+      <div class="form-actions">
+        <button
+          type="submit"
+          class="btn btn-primary btn-register"
+          [disabled]="loading"
+        >
+          <span *ngIf="!loading">Registrarse</span>
+          <span *ngIf="loading">
+            <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+            Registrando...
+          </span>
+        </button>
+
+        <button
+          type="button"
+          class="btn btn-secondary btn-reset"
+          (click)="resetForm()"
+          [disabled]="loading"
+        >
+          Limpiar Formulario
+        </button>
+      </div>
+    </form>
+
+    <!-- Enlace a Login -->
+    <div class="login-link">
+      <p>¿Ya tienes cuenta? 
+        <a href="javascript:void(0)" (click)="goToLogin()" class="link">Inicia sesión aquí</a>
+      </p>
+    </div>
+  </div>
+</div>

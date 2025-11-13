@@ -9,7 +9,7 @@ import { Genero } from '../models/libro.models';
   providedIn: 'root'
 })
 export class GeneroService {
-  private apiUrl = `${environment.apiUrl}/genres`; // Ajusta si tienes este endpoint
+  private apiUrl = `${environment.apiUrl}/v1/library/genres`;
 
   constructor(private http: HttpClient) {}
 

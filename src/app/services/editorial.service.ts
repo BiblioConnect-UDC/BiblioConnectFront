@@ -9,7 +9,7 @@ import { EditorialEntity } from '../models/libro.models';
   providedIn: 'root'
 })
 export class EditorialService {
-  private apiUrl = `${environment.apiUrl}/editorials`; // Ajusta si tienes este endpoint
+  private apiUrl = `${environment.apiUrl}/v1/library/editorials`; // Ajusta si tienes este endpoint
 
   constructor(private http: HttpClient) {}
 

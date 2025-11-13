@@ -1,0 +1,26 @@
+<header class="navbar-header" *ngIf="isAuthenticated">
+  <div class="navbar-container">
+    <!-- Logo -->
+    <div class="navbar-brand">
+      <h2 (click)="goHome()">📚 BiblioConnect</h2>
+    </div>
+
+    <!-- Espacio vacío en el centro -->
+    <div class="navbar-spacer"></div>
+
+    <!-- Usuario y Logout -->
+    <div class="navbar-user">
+      <div class="user-info">
+        <span class="user-icon">👤</span>
+        <span class="user-name">{{ username }}</span>
+      </div>
+      <button 
+        class="btn-logout" 
+        (click)="logout()"
+        title="Cerrar sesión"
+      >
+        Salir
+      </button>
+    </div>
+  </div>
+</header>

@@ -75,7 +75,7 @@
 
 .btn-add {
   padding: 12px 24px;
-  background: linear-gradient(135deg, #667eea 0%, #6f4b93af 100%);
+  background: linear-gradient(135deg, #00bf13 0%, #8a15ffaf 100%);
   color: white;
   border: none;
   border-radius: 8px;
@@ -136,7 +136,7 @@
   margin: 0 auto;
   padding: 0 20px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 25px;
 }
 

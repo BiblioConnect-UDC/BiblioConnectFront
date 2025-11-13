@@ -9,7 +9,7 @@ import { Libro, CreateLibroRequest, LibroCompleto } from '../models/libro.models
   providedIn: 'root'
 })
 export class LibroService {
-  private apiUrl = `${environment.apiUrl}/books`;
+  private apiUrl = `${environment.apiUrl}/v1/library/books`;
 
   constructor(private http: HttpClient) {}
 

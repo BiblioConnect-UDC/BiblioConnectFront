@@ -2,6 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LibroService } from '../../services/libro.service';
+import { AuthService } from '../../services/auth.service';
 import { Libro, LibroCompleto } from '../../models/libro.models';
 
 @Component({
@@ -16,11 +17,22 @@ export class HomeComponent implements OnInit {
   searchTerm: string = '';
 
   constructor(
+    private authService: AuthService,
     private libroService: LibroService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
+    console.log('HomeComponent inicializado');
+    
+    // Validar que el usuario está autenticado
+    if (!this.authService.isAuthenticated()) {
+      console.warn('Usuario no autenticado, redirigiendo a login');
+      this.router.navigate(['/login']);
+      return;
+    }
+
+    // Cargar libros
     this.cargarLibros();
   }
 
