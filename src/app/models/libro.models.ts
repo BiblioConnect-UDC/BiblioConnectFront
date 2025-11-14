@@ -1,7 +1,8 @@
 export interface Libro {
+  isbn: string;
   id: number;
   titulo: string;
-  isbn: string;
+
   editorial: Editorial;
   categoria: string;
 }
