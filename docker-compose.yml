@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  biblio-connect-frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: biblio-connect-frontend
+    ports:
+      - "4200:4200"
+    restart: unless-stopped
+    networks:
+      - biblio-network
+
+networks:
+  biblio-network:
+    driver: bridge
