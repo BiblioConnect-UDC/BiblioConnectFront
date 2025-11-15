@@ -5,6 +5,11 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        # Configuración de Angular a usar: production o development
+        # production usa environment.prod.ts (http://149.130.173.252:8081/api)
+        # development usa environment.ts (http://localhost:8080/api)
+        CONFIGURATION: production
     container_name: biblio-connect-frontend
     ports:
       - "4200:4200"

@@ -3,6 +3,9 @@ FROM node:18-alpine AS build
 
 WORKDIR /app
 
+# Build argument para definir el environment
+ARG CONFIGURATION=production
+
 # Copy package files
 COPY package*.json ./
 
@@ -12,8 +15,9 @@ RUN npm ci
 # Copy the rest of the application
 COPY . .
 
-# Build the application for production
-RUN npm run build -- --configuration production
+# Build the application with the specified configuration
+# Usará environment.prod.ts si CONFIGURATION=production
+RUN npm run build -- --configuration ${CONFIGURATION}
 
 # Stage 2: Serve the application with Nginx
 FROM nginx:alpine
