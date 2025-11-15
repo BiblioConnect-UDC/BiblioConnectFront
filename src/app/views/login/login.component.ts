@@ -44,20 +44,26 @@ export class LoginComponent implements OnInit {
    * Maneja el envío del formulario de login
    */
   onSubmit(): void {
+    console.log('🚀 onSubmit() iniciado');
+    
     this.submitted = true;
     this.error = '';
 
     // Detener si el formulario es inválido
     if (this.loginForm.invalid) {
+      console.log('❌ Formulario inválido', this.loginForm.errors);
       return;
     }
 
     this.loading = true;
     const { username, password } = this.loginForm.value;
+    
+    console.log('📝 Datos del formulario:', { username, passwordLength: password?.length });
+    console.log('🔄 Llamando a authService.login()...');
 
     this.authService.login(username, password).subscribe({
       next: (response) => {
-        console.log('Login exitoso');
+        console.log('✅ Login exitoso en componente', response);
         // Guardar username en localStorage para mostrar en header
         localStorage.setItem('username', username);
         this.loading = false;
@@ -65,11 +71,18 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/home']);
       },
       error: (error) => {
-        console.error('Error en login:', error);
+        console.error('❌ Error capturado en componente:', error);
+        console.error('❌ Error tipo:', typeof error);
+        console.error('❌ Error completo:', JSON.stringify(error, null, 2));
         this.error = error.message || 'Error al iniciar sesión';
         this.loading = false;
+      },
+      complete: () => {
+        console.log('✔️ Observable completado');
       }
     });
+    
+    console.log('⏳ Después de subscribe (asíncrono)');
   }
 
   /**
